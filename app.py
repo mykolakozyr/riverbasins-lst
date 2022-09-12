@@ -8,8 +8,6 @@ import altair as alt
 from streamlit_folium import folium_static 
 import folium
 
-import src.gee as gee
-
 MAP_EMOJI_URL = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/325/thermometer_1f321-fe0f.png"
 
 # Set page title and favicon.
@@ -46,6 +44,7 @@ json_object = json.dumps(json_object)
 credentials = ee.ServiceAccountCredentials(service_account, key_data=json_object)
 ee.Initialize(credentials)
 
+import src.gee as gee
 
 # Defining the GeoDataFrame with a subset of areas with archive coverage.
 filename = "data/basins_europe_mult.geojson"
