@@ -1,0 +1,10 @@
+altair==4.2.0
+earthengine-api==0.1.322
+ee==0.2
+Fiona==1.8.21
+folium==0.12.1.post1
+geojson==2.5.0
+geopandas==0.11.1
+pandas==1.4.4
+streamlit==1.12.2
+streamlit-folium==0.6.15
