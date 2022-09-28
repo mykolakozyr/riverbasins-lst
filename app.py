@@ -38,25 +38,8 @@ col2.markdown("""
     """)
 
 
-# json_data = st.secrets["json_data"]
-# service_account = st.secrets["service_account"]
-
-json_data = '''
-{
-   "type":"service_account",
-   "project_id":"ee-mykolakozyr",
-   "private_key_id":"13295f79084a746020937b3d488b25c228ea31b0",
-   "private_key":"-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDW77XaD0op3fwa\n9IRbuNCjyk5W++2nI7Zx36mPysWU4nvBZA1qD6+q2/dyFLACXi1cuVbTlFNlEPBa\nph96XqJLxLluJgxFrdBIZtUMKXQMdraxxQ1/XhgFuj0rR5gY8xIXUSnTcEceK7mV\nhkQkuBE2fG6fKvlcfQHpjlFzOmw1osO1NTjXYfFt9kr7stTv2L1WCMRN+dlVVzdz\n0OD6/8QTlsKD310Vb0/tQWtXhJJefOOSVoNuzAnRCabPFOxB8jpqVEATCALW8cAl\n7N65j6zNe0C2wNmJkWfppgCBDrWNpH79LgA7WEg7rG4TjwgS40Jw98VviOm/Q/Sx\nJn/uvqmFAgMBAAECggEABbHRdQmYgC4xKVX/3L3sUsPxmiFv5DtXolA7hJjNfEVE\nAC5XsMDTeWqZtX1BxY3YKY3kUPB6L/BkwdjAE12OHaHZ/NvrJtHKWWS6FSKoXJme\ntJb9pXmbCX8k1nehU2l0JI67I/zkal1q0U8M9N2KYMOLKVJdWemo+HMTpt8m6toM\nsXuU/jV7Lq7P2vriUKipJDgeVbbGFmmjR+UBFYXUBweN52DvQ3y1MiwCfwWUzpoO\nXk8QhA32U9GA6Py25/U52WHZLUSn1jdRV3gfwqWnDGdcGrRlEqum7SM2mryCIKWN\nwpTA+k/t6WFDDVFmH0txigV1RpxrkwXuguhh8MQnwQKBgQD7MlViN/mAkWeFVyJ9\nS6lUACCGryARQlAyEWvpVi0MrCe/CGfwXZ8eQ5fQeEh8hE9Ppw7Ip0rje+AatNsN\nzDFjnvBoNT9d/GHuQ2bRXyPJquVTwHc36FioLGXzQ7mi0L8xW1NLbfsUYZvsLajn\nHPjJb/kAA0q5AYoiKJ9ZL/rAwQKBgQDbC9/Ylif5g3RnfLzOyXHZFZInyK59U3n3\nkNXU8ph454vnfeowmtaeBT0Cx7tlXLsxfD0rN7a6Fy7FqBfaE7jybCzlBBJnOGn8\nc4GXV0GZDqV2YdqMJ/XT9vmTMhHXsBhscluYtdIqzwBzfrfdEBvQaMLR2Kb9O7lw\nxmR4HpiVxQKBgQChW3nBd9dLoRtwacJ73chNby91lLTyoThGkS5SWsrhYwy9B7dM\njbcSh7TTcxCM+6i+r78tYVkXu5D/VsGHoWzwYz5mkh28T8zQcndvcr/YYXCiVfW+\n8f9ROAPdOdnbHmBSYimlQGaSdwjjs4jVvKSLMOQv/+1V3glPW+zQK6PVgQKBgHMw\nq2aakCsGlhBV6HRWOyiNz25cemYtn9YwtEJn0QbDvS7faGhnBLXUy2DK6CFFwqsj\nSoePpOf3iQEohGKKPJg/itxkZ8kgQZwgoeWUXUrACQNYMjXCTeRJ3LUrf3aNhEqD\nWOfVtdANS49w8/+smPPgI5N2+1nwLnS/39XLQTKBAoGANDP4ya+ajS9vDpmQmfSu\n7TEjZssA2c3fGgAJMHQS5Fa76ZGxZZgOwpBhw7wKDm/ideOcuVGiaoq0F4eWn6r9\nkfomyaMTDfupxFttkcbhplV3E/X58ZZ7aORyrHNnfZ1TRyQR0A9gLYjvdz0LdUOj\nXYURU9FHRjL4+3TfT+R+bNE=\n-----END PRIVATE KEY-----\n",
-   "client_email":"streamlit@ee-mykolakozyr.iam.gserviceaccount.com",
-   "client_id":"110179564455160364883",
-   "auth_uri":"https://accounts.google.com/o/oauth2/auth",
-   "token_uri":"https://oauth2.googleapis.com/token",
-   "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
-   "client_x509_cert_url":"https://www.googleapis.com/robot/v1/metadata/x509/streamlit%40ee-mykolakozyr.iam.gserviceaccount.com"
-}
-'''
-
-service_account = 'streamlit@ee-mykolakozyr.iam.gserviceaccount.com'
+json_data = st.secrets["json_data"]
+service_account = st.secrets["service_account"]
 
 
 json_object = json.loads(json_data, strict=False)
