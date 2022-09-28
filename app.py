@@ -29,15 +29,35 @@ col2.markdown("""
     
     ## Details
 
-    The app enables discovering land surface temperature data over river basins in Europe. Temporal extent: 2017-01-01 till today.
+    The app enables discovering land surface temperature data over river basins in Europe and the USA. 
+
+    Temporal extent: 2017-01-01 till today.
     Library for visualizations - [Vega-Altair](https://altair-viz.github.io/index.html).
 
     ---
     """)
 
 
-json_data = st.secrets["json_data"]
-service_account = st.secrets["service_account"]
+# json_data = st.secrets["json_data"]
+# service_account = st.secrets["service_account"]
+
+json_data = '''
+{
+   "type":"service_account",
+   "project_id":"ee-mykolakozyr",
+   "private_key_id":"13295f79084a746020937b3d488b25c228ea31b0",
+   "private_key":"-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDW77XaD0op3fwa\n9IRbuNCjyk5W++2nI7Zx36mPysWU4nvBZA1qD6+q2/dyFLACXi1cuVbTlFNlEPBa\nph96XqJLxLluJgxFrdBIZtUMKXQMdraxxQ1/XhgFuj0rR5gY8xIXUSnTcEceK7mV\nhkQkuBE2fG6fKvlcfQHpjlFzOmw1osO1NTjXYfFt9kr7stTv2L1WCMRN+dlVVzdz\n0OD6/8QTlsKD310Vb0/tQWtXhJJefOOSVoNuzAnRCabPFOxB8jpqVEATCALW8cAl\n7N65j6zNe0C2wNmJkWfppgCBDrWNpH79LgA7WEg7rG4TjwgS40Jw98VviOm/Q/Sx\nJn/uvqmFAgMBAAECggEABbHRdQmYgC4xKVX/3L3sUsPxmiFv5DtXolA7hJjNfEVE\nAC5XsMDTeWqZtX1BxY3YKY3kUPB6L/BkwdjAE12OHaHZ/NvrJtHKWWS6FSKoXJme\ntJb9pXmbCX8k1nehU2l0JI67I/zkal1q0U8M9N2KYMOLKVJdWemo+HMTpt8m6toM\nsXuU/jV7Lq7P2vriUKipJDgeVbbGFmmjR+UBFYXUBweN52DvQ3y1MiwCfwWUzpoO\nXk8QhA32U9GA6Py25/U52WHZLUSn1jdRV3gfwqWnDGdcGrRlEqum7SM2mryCIKWN\nwpTA+k/t6WFDDVFmH0txigV1RpxrkwXuguhh8MQnwQKBgQD7MlViN/mAkWeFVyJ9\nS6lUACCGryARQlAyEWvpVi0MrCe/CGfwXZ8eQ5fQeEh8hE9Ppw7Ip0rje+AatNsN\nzDFjnvBoNT9d/GHuQ2bRXyPJquVTwHc36FioLGXzQ7mi0L8xW1NLbfsUYZvsLajn\nHPjJb/kAA0q5AYoiKJ9ZL/rAwQKBgQDbC9/Ylif5g3RnfLzOyXHZFZInyK59U3n3\nkNXU8ph454vnfeowmtaeBT0Cx7tlXLsxfD0rN7a6Fy7FqBfaE7jybCzlBBJnOGn8\nc4GXV0GZDqV2YdqMJ/XT9vmTMhHXsBhscluYtdIqzwBzfrfdEBvQaMLR2Kb9O7lw\nxmR4HpiVxQKBgQChW3nBd9dLoRtwacJ73chNby91lLTyoThGkS5SWsrhYwy9B7dM\njbcSh7TTcxCM+6i+r78tYVkXu5D/VsGHoWzwYz5mkh28T8zQcndvcr/YYXCiVfW+\n8f9ROAPdOdnbHmBSYimlQGaSdwjjs4jVvKSLMOQv/+1V3glPW+zQK6PVgQKBgHMw\nq2aakCsGlhBV6HRWOyiNz25cemYtn9YwtEJn0QbDvS7faGhnBLXUy2DK6CFFwqsj\nSoePpOf3iQEohGKKPJg/itxkZ8kgQZwgoeWUXUrACQNYMjXCTeRJ3LUrf3aNhEqD\nWOfVtdANS49w8/+smPPgI5N2+1nwLnS/39XLQTKBAoGANDP4ya+ajS9vDpmQmfSu\n7TEjZssA2c3fGgAJMHQS5Fa76ZGxZZgOwpBhw7wKDm/ideOcuVGiaoq0F4eWn6r9\nkfomyaMTDfupxFttkcbhplV3E/X58ZZ7aORyrHNnfZ1TRyQR0A9gLYjvdz0LdUOj\nXYURU9FHRjL4+3TfT+R+bNE=\n-----END PRIVATE KEY-----\n",
+   "client_email":"streamlit@ee-mykolakozyr.iam.gserviceaccount.com",
+   "client_id":"110179564455160364883",
+   "auth_uri":"https://accounts.google.com/o/oauth2/auth",
+   "token_uri":"https://oauth2.googleapis.com/token",
+   "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
+   "client_x509_cert_url":"https://www.googleapis.com/robot/v1/metadata/x509/streamlit%40ee-mykolakozyr.iam.gserviceaccount.com"
+}
+'''
+
+service_account = 'streamlit@ee-mykolakozyr.iam.gserviceaccount.com'
+
 
 json_object = json.loads(json_data, strict=False)
 json_object = json.dumps(json_object)
@@ -46,313 +66,316 @@ ee.Initialize(credentials)
 
 import src.gee as gee
 
-# Defining the GeoDataFrame with a subset of areas with archive coverage.
-filename = "data/basins_europe_mult.geojson"
-file = open(filename)
-gdf = gpd.read_file(file)
-
 # Defining the temporal extent of the discovery
 today = ee.Date(pd.to_datetime('today'))
 date_range = ee.DateRange('2017-01-01', today)
 
 # Interface to select the area of interest.
-maj_name = col2.selectbox('Select the major hydrological basin.', pd.unique(gdf['MAJ_NAME']))
-if maj_name:
-    sub_name = col2.selectbox('Select the river basin within the major one', gdf[gdf['MAJ_NAME'] == maj_name]['SUB_NAME'])
-    with col2.expander('Additional parameters', expanded=False):
-        st.text('How many charts do you want to create?')
-        agree = st.checkbox('Yes', value='Yes', disabled=True)
-    if agree == True:
-        if col2.button('Discover the Land Surface Temperature data!'):
-            with col2:
-                with st.spinner("Collecting data using Google Earth Engine..."):
-                    #st.spinner("Collecting data using Google Earth Engine...")
-                    aoi_json = json.loads(gdf.loc[gdf['SUB_NAME'] == sub_name, 'geometry'].to_json())['features'][0]['geometry']
-                    #st.write(sub_name, aoi_json)
-                    aoi = ee.FeatureCollection(ee.Geometry(aoi_json)).geometry()
+region_name = col2.selectbox('Select the region.', ['Europe','USA'])
+if region_name:
+    # Defining the GeoDataFrame with a subset of areas with archive coverage.
+    filename = "data/basins_" + region_name.lower() + "_mult.geojson"
+    file = open(filename)
+    gdf = gpd.read_file(file)
 
-                    # Getting LST data
-                    lst = ee.ImageCollection('MODIS/061/MOD11A2').filterDate(date_range).select('LST_Day_1km')
-                    reduce_lst = gee.create_reduce_region_function(
-                    geometry=aoi, reducer=ee.Reducer.mean(), scale=1000, crs='EPSG:4326')
-                    lst_stat_fc = ee.FeatureCollection(lst.map(reduce_lst)).filter(ee.Filter.notNull(lst.first().bandNames()))
-                    lst_dict = gee.fc_to_dict(lst_stat_fc).getInfo()
-                    lst_df = pd.DataFrame(lst_dict)
-                    lst_df['LST_Day_1km'] = (lst_df['LST_Day_1km'] * 0.02 - 273.5)
-                    lst_df = gee.add_date_info(lst_df)
+    maj_name = col2.selectbox('Select the major hydrological basin.', pd.unique(gdf['MAJ_NAME']))
+    if maj_name:
+        sub_name = col2.selectbox('Select the river basin within the major one', gdf[gdf['MAJ_NAME'] == maj_name]['SUB_NAME'])
+        with col2.expander('Additional parameters', expanded=False):
+            st.text('How many charts do you want to create?')
+            agree = st.checkbox('Yes', value='Yes', disabled=True)
+        if agree == True:
+            if col2.button('Discover the Land Surface Temperature data!'):
+                with col2:
+                    with st.spinner("Collecting data using Google Earth Engine..."):
+                        #st.spinner("Collecting data using Google Earth Engine...")
+                        aoi_json = json.loads(gdf.loc[gdf['SUB_NAME'] == sub_name, 'geometry'].to_json())['features'][0]['geometry']
+                        #st.write(sub_name, aoi_json)
+                        aoi = ee.FeatureCollection(ee.Geometry(aoi_json)).geometry()
 
-                    with st.expander('Geometry Preview', expanded=False):
-                        map_aoi = folium.Map(tiles="OpenStreetMap")
-                        folium.Choropleth(geo_data = aoi_json,reset=True).add_to(map_aoi)
-                        map_aoi.fit_bounds(map_aoi.get_bounds())
-                        folium_static(map_aoi)
+                        # Getting LST data
+                        lst = ee.ImageCollection('MODIS/061/MOD11A2').filterDate(date_range).select('LST_Day_1km')
+                        reduce_lst = gee.create_reduce_region_function(
+                        geometry=aoi, reducer=ee.Reducer.mean(), scale=1000, crs='EPSG:4326')
+                        lst_stat_fc = ee.FeatureCollection(lst.map(reduce_lst)).filter(ee.Filter.notNull(lst.first().bandNames()))
+                        lst_dict = gee.fc_to_dict(lst_stat_fc).getInfo()
+                        lst_df = pd.DataFrame(lst_dict)
+                        lst_df['LST_Day_1km'] = (lst_df['LST_Day_1km'] * 0.02 - 273.5)
+                        lst_df = gee.add_date_info(lst_df)
 
-            # Creating Charts
-            # Line Chart with Points: https://altair-viz.github.io/gallery/line_chart_with_points.html
-            line_chart = alt.Chart(lst_df).mark_line(
-                point=alt.OverlayMarkDef(color="red")
-            ).encode(
-                alt.X('Timestamp'),
-                alt.Y('LST_Day_1km', title='Land Surface Temperature, °C'),
-            ).interactive()
+                        with st.expander('Geometry Preview', expanded=False):
+                            map_aoi = folium.Map(tiles="OpenStreetMap")
+                            folium.Choropleth(geo_data = aoi_json,reset=True).add_to(map_aoi)
+                            map_aoi.fit_bounds(map_aoi.get_bounds())
+                            folium_static(map_aoi)
+
+                # Creating Charts
+                # Line Chart with Points: https://altair-viz.github.io/gallery/line_chart_with_points.html
+                line_chart = alt.Chart(lst_df).mark_line(
+                    point=alt.OverlayMarkDef(color="red")
+                ).encode(
+                    alt.X("Timestamp"),
+                    alt.Y("LST_Day_1km", title='Land Surface Temperature, °C'),
+                ).interactive()
 
 
-            # Ridgeline plot Example: https://altair-viz.github.io/gallery/ridgeline_plot.html
-            step = 16
-            overlap = 1
+                # Ridgeline plot Example: https://altair-viz.github.io/gallery/ridgeline_plot.html
+                step = 16
+                overlap = 1
 
-            ridgeline_plot = alt.Chart(lst_df, height=step).transform_timeunit(
-                Month='month(Timestamp)'
-            ).transform_joinaggregate(
-                mean_temp='mean(LST_Day_1km)', groupby=['Month']
-            ).transform_bin(
-                ['bin_max', 'bin_min'], 'mean_temp'
-            ).transform_aggregate(
-                value='count()', groupby=['Month', 'mean_temp', 'bin_min', 'bin_max']
-            ).transform_impute(
-                impute='value', groupby=['Month', 'mean_temp'], key='bin_min', value=0
-            ).mark_area(
-                interpolate='monotone',
-                fillOpacity=0.8,
-                stroke='lightgray',
-                strokeWidth=0.5
-            ).encode(
-                alt.X('bin_min:Q', bin='binned',
-                    title='Land Surface Temperature, °C'
-                ),
-                alt.Y(
-                    'value:Q',
-                    scale=alt.Scale(range=[step, -step * overlap]),
-                    axis=None
-                ),
-                alt.Fill(
-                    'mean_temp:Q',
-                    legend=None,
-                    scale=alt.Scale(domain=[40, -5], scheme='redyellowblue')
-                )
-            ).facet(
-                row=alt.Row(
-                    'Month:T',
-                    title=None,
-                    header=alt.Header(labelAngle=0, labelAlign='right', format='%B')
-                )
-            ).properties(
-                bounds='flush'
-            ).configure_facet(
-                spacing=0
-            ).configure_view(
-                stroke=None
-            ).configure_title(
-                anchor='end'
-            )
-
-            # Binned Heatmap: https://altair-viz.github.io/gallery/binned_heatmap.html
-            binned_heatmap = alt.Chart(lst_df).mark_rect().encode(
-                alt.X('Month:O'),
-                alt.Y('Year:O'),
-                alt.Color('mean(LST_Day_1km):Q', scale=alt.Scale(scheme='redyellowblue', reverse=True), title='Land Surface Temperature, °C')
-            ).interactive()
-
-            # Violin Plot Chart: https://altair-viz.github.io/gallery/violin_plot.html
-            violin_chart = alt.Chart(lst_df).transform_density(
-                'LST_Day_1km',
-                as_=['LST_Day_1km', 'density'],
-                extent=[-20, 60],
-                groupby=['Year']
-            ).mark_area(orient='horizontal').encode(
-                alt.Y('LST_Day_1km:Q',title='Land Surface Temperature, °C'),
-                color='Year:N',
-                x=alt.X(
-                    'density:Q',
-                    stack='center',
-                    impute=None,
-                    title=None,
-                    axis=alt.Axis(labels=False, values=[0],grid=False, ticks=True),
-                ),
-                column=alt.Column(
-                    'Year:Q',
-                    header=alt.Header(
-                        titleOrient='bottom',
-                        labelOrient='bottom',
-                        labelPadding=0,
+                ridgeline_plot = alt.Chart(lst_df, height=step).transform_timeunit(
+                    Month="month(Timestamp)"
+                ).transform_joinaggregate(
+                    mean_temp="mean(LST_Day_1km)", groupby=['Month']
+                ).transform_bin(
+                    ['bin_max', 'bin_min'], 'mean_temp'
+                ).transform_aggregate(
+                    value='count()', groupby=['Month', 'mean_temp', 'bin_min', 'bin_max']
+                ).transform_impute(
+                    impute='value', groupby=['Month', 'mean_temp'], key='bin_min', value=0
+                ).mark_area(
+                    interpolate='monotone',
+                    fillOpacity=0.8,
+                    stroke='lightgray',
+                    strokeWidth=0.5
+                ).encode(
+                    alt.X('bin_min:Q', bin='binned',
+                        title='Land Surface Temperature, °C'
                     ),
-                )
-            ).properties(
-                width=100,
-                height=450
-            ).configure_facet(
-                spacing=0
-            ).configure_view(
-                stroke=None
-            ).interactive()
-
-
-            # Hexbin Chart: https://altair-viz.github.io/gallery/hexbins.html
-            # Size of the hexbins
-            size = 15
-            # Count of distinct x features
-            xFeaturesCount = 12
-            # Count of distinct y features
-            yFeaturesCount = 6
-            yField = 'Timestamp'
-            xField = 'Timestamp'
-            # the shape of a hexagon
-            hexagon = "M0,-2.3094010768L2,-1.1547005384 2,1.1547005384 0,2.3094010768 -2,1.1547005384 -2,-1.1547005384Z"
-            hexbin_chart = alt.Chart(lst_df).mark_point(size=size**2, shape=hexagon).encode(
-                x=alt.X('xFeaturePos:Q', axis=alt.Axis(title='Month',
-                                                       grid=False, tickOpacity=0, domainOpacity=0)),
-                y=alt.Y('year(' + yField + '):O', axis=alt.Axis(title='Year',
-                                                               labelPadding=20, tickOpacity=0, domainOpacity=0)),
-                stroke=alt.value('black'),
-                strokeWidth=alt.value(0.2),
-                fill=alt.Color('mean(LST_Day_1km):Q', scale=alt.Scale(scheme='redyellowblue', reverse=True), title='Land Surface Temperature, °C'),
-                tooltip=['Month:O', 'Year:O', 'mean(LST_Day_1km):Q']
-            ).transform_calculate(
-                # This field is required for the hexagonal X-Offset
-                xFeaturePos='(year(datum.' + yField + ') % 2) / 2 + month(datum.' + xField + ')'
-            ).properties(
-                # Scaling factors to make the hexbins fit. Adjusted to the streamlit view
-                width=size * xFeaturesCount * 3.6,
-                height=size * yFeaturesCount * 2.77128129216
-            ).configure_view(
-                strokeWidth=0
-            ).interactive()
-
-            # Boxplot Chart: https://altair-viz.github.io/gallery/boxplot.html
-            boxplot_chart_year = alt.Chart(lst_df).mark_boxplot(extent='min-max').encode(
-                alt.X('Year:O'),
-                alt.Y('mean(LST_Day_1km):Q',title='Land Surface Temperature, °C')
-            ).interactive()
-
-            # Boxplot Chart: https://altair-viz.github.io/gallery/boxplot.html
-            boxplot_chart_month = alt.Chart(lst_df).mark_boxplot(extent='min-max').encode(
-                alt.X('Month:O'),
-                alt.Y('mean(LST_Day_1km):Q', title='Land Surface Temperature, °C')
-            ).properties(height=500).interactive()
-
-            # Scatter Plot Chart: https://altair-viz.github.io/gallery/scatter_tooltips.html
-            scatter_chart = alt.Chart(lst_df).mark_circle(size=60).encode(
-                alt.Y('LST_Day_1km', title='Land Surface Temperature, °C'),
-                alt.X('DOY'),
-                color='Year:N',
-                tooltip=['LST_Day_1km', 'Timestamp']
-            ).interactive()
-
-            # Bar Chart with Negative Values: https://altair-viz.github.io/gallery/bar_chart_with_negatives.html
-            bar_negative = alt.Chart(lst_df).mark_bar().encode(
-                alt.X("Timestamp"),
-                alt.Y("LST_Day_1km:Q", title='Land Surface Temperature, °C'),
-                color=alt.condition(
-                    alt.datum.LST_Day_1km > 0,
-                    alt.value("orange"),  # The positive color
-                    alt.value("steelblue")  # The negative color
-                )
-            ).interactive()
-
-            # Binned Scatterplot: https://altair-viz.github.io/gallery/binned_scatterplot.html
-            scatter_binned = alt.Chart(lst_df).mark_circle().encode(
-                alt.X('DOY:Q', bin=True),
-                alt.Y('LST_Day_1km:Q', bin=True, title='Land Surface Temperature, °C'),
-                size='count()'
-            ).interactive()
-
-            #Scatter Plot with LOESS Lines: https://altair-viz.github.io/gallery/scatter_with_loess.html
-            base_scatter = alt.Chart(lst_df).mark_circle(opacity=0.5).encode(
-                alt.X('DOY'),
-                alt.Y('LST_Day_1km:Q', title='Land Surface Temperature, °C'),
-                alt.Color('Year:N')
-            )
-            scatter_loess = base_scatter + base_scatter.transform_loess('DOY', 'LST_Day_1km', groupby=['Year']).mark_line(size=4).interactive()
-
-            # Stripplot: https://altair-viz.github.io/gallery/stripplot.html
-            stripplot =  alt.Chart(lst_df, width=40).mark_circle(size=8).encode(
-                x=alt.X(
-                    'jitter:Q',
-                    title=None,
-                    axis=alt.Axis(values=[0], ticks=True, grid=False, labels=False),
-                    scale=alt.Scale(),
-                ),
-                y=alt.Y('LST_Day_1km:Q', title='Land Surface Temperature, °C'),
-                color=alt.Color('Year:N', legend=None),
-                column=alt.Column(
-                    'Year:N',
-                    header=alt.Header(
-                        labelAngle=-90,
-                        titleOrient='top',
-                        labelOrient='bottom',
-                        labelAlign='right',
-                        labelPadding=3,
+                    alt.Y(
+                        'value:Q',
+                        scale=alt.Scale(range=[step, -step * overlap]),
+                        axis=None
                     ),
-                ),
-            ).transform_calculate(
-                # Generate Gaussian jitter with a Box-Muller transform
-                jitter='sqrt(-2*log(random()))*cos(2*PI*random())'
-            ).configure_facet(
-                spacing=0
-            ).configure_view(
-                stroke=None
-            ).properties(height=400).interactive()
+                    alt.Fill(
+                        'mean_temp:Q',
+                        legend=None,
+                        scale=alt.Scale(domain=[40, -5], scheme='redyellowblue')
+                    )
+                ).facet(
+                    row=alt.Row(
+                        "Month:T",
+                        title=None,
+                        header=alt.Header(labelAngle=0, labelAlign='right', format='%B')
+                    )
+                ).properties(
+                    bounds='flush'
+                ).configure_facet(
+                    spacing=0
+                ).configure_view(
+                    stroke=None
+                ).configure_title(
+                    anchor='end'
+                )
 
-            # Table Bubble Plot: https://altair-viz.github.io/gallery/table_bubble_plot_github.html
-            table_bubble = alt.Chart(lst_df).mark_circle().encode(
-                alt.X('Month:O'),
-                alt.Y('Year:O'),
-                alt.Size('mean(LST_Day_1km):Q', title='Land Surface Temperature, °C')
-            ).interactive()
+                # Binned Heatmap: https://altair-viz.github.io/gallery/binned_heatmap.html
+                binned_heatmap = alt.Chart(lst_df).mark_rect().encode(
+                    alt.X("Month:O"),
+                    alt.Y("Year:O"),
+                    alt.Color("mean(LST_Day_1km):Q", scale=alt.Scale(scheme='redyellowblue', reverse=True), title='Land Surface Temperature, °C')
+                ).interactive()
+
+                # Violin Plot Chart: https://altair-viz.github.io/gallery/violin_plot.html
+                violin_chart = alt.Chart(lst_df).transform_density(
+                    "LST_Day_1km",
+                    as_=["LST_Day_1km", 'density'],
+                    extent=[-20, 60],
+                    groupby=["Year"]
+                ).mark_area(orient='horizontal').encode(
+                    alt.Y("LST_Day_1km:Q",title='Land Surface Temperature, °C'),
+                    color="Year:N",
+                    x=alt.X(
+                        'density:Q',
+                        stack='center',
+                        impute=None,
+                        title=None,
+                        axis=alt.Axis(labels=False, values=[0],grid=False, ticks=True),
+                    ),
+                    column=alt.Column(
+                        "Year:Q",
+                        header=alt.Header(
+                            titleOrient='bottom',
+                            labelOrient='bottom',
+                            labelPadding=0,
+                        ),
+                    )
+                ).properties(
+                    width=100,
+                    height=450
+                ).configure_facet(
+                    spacing=0
+                ).configure_view(
+                    stroke=None
+                )
 
 
-            # Visualizing in the defined layout
-            # Row 1
-            col1, col2 = st.columns([4,1])
-            with col1:
-                st.altair_chart(line_chart, use_container_width=True)
-            with col2:
-                st.altair_chart(boxplot_chart_year, use_container_width=True)
+                # Hexbin Chart: https://altair-viz.github.io/gallery/hexbins.html
+                # Size of the hexbins
+                size = 15
+                # Count of distinct x features
+                xFeaturesCount = 12
+                # Count of distinct y features
+                yFeaturesCount = 6
+                yField = 'Timestamp'
+                xField = 'Timestamp'
+                # the shape of a hexagon
+                hexagon = "M0,-2.3094010768L2,-1.1547005384 2,1.1547005384 0,2.3094010768 -2,1.1547005384 -2,-1.1547005384Z"
+                hexbin_chart = alt.Chart(lst_df).mark_point(size=size**2, shape=hexagon).encode(
+                    x=alt.X('xFeaturePos:Q', axis=alt.Axis(title='Month',
+                                                           grid=False, tickOpacity=0, domainOpacity=0)),
+                    y=alt.Y('year(' + yField + '):O', axis=alt.Axis(title='Year',
+                                                                   labelPadding=20, tickOpacity=0, domainOpacity=0)),
+                    stroke=alt.value('black'),
+                    strokeWidth=alt.value(0.2),
+                    fill=alt.Color('mean(LST_Day_1km):Q', scale=alt.Scale(scheme='redyellowblue', reverse=True), title='Land Surface Temperature, °C'),
+                    tooltip=['Month:O', 'Year:O', 'mean(LST_Day_1km):Q']
+                ).transform_calculate(
+                    # This field is required for the hexagonal X-Offset
+                    xFeaturePos='(year(datum.' + yField + ') % 2) / 2 + month(datum.' + xField + ')'
+                ).properties(
+                    # Scaling factors to make the hexbins fit. Adjusted to the streamlit view
+                    width=size * xFeaturesCount * 3.6,
+                    height=size * yFeaturesCount * 2.77128129216
+                ).configure_view(
+                    strokeWidth=0
+                ).interactive()
 
-            # Row 2
-            col1, col2 = st.columns([1,1])
-            with col1:
-                st.altair_chart(binned_heatmap, use_container_width=True)
-            with col2:
-                st.altair_chart(table_bubble, use_container_width=True)
+                # Boxplot Chart: https://altair-viz.github.io/gallery/boxplot.html
+                boxplot_chart_year = alt.Chart(lst_df).mark_boxplot(extent='min-max').encode(
+                    alt.X('Year:O'),
+                    alt.Y('mean(LST_Day_1km):Q',title='Land Surface Temperature, °C')
+                ).interactive()
 
-            # Row 3
-            col1, col2 = st.columns([1,4])
-            with col1:
-                st.altair_chart(scatter_chart, use_container_width=True)
-            with col2:
-                st.altair_chart(bar_negative, use_container_width=True)
+                # Boxplot Chart: https://altair-viz.github.io/gallery/boxplot.html
+                boxplot_chart_month = alt.Chart(lst_df).mark_boxplot(extent='min-max').encode(
+                    alt.X('Month:O'),
+                    alt.Y('mean(LST_Day_1km):Q', title='Land Surface Temperature, °C')
+                ).properties(height=500).interactive()
 
-            # Row 4
-            col1, col2, col3 = st.columns([1,2,1])
-            with col1:
-                st.altair_chart(boxplot_chart_month, use_container_width=True)
-            with col2:
-                st.altair_chart(violin_chart)
-            with col3:
-                st.altair_chart(stripplot)
+                # Scatter Plot Chart: https://altair-viz.github.io/gallery/scatter_tooltips.html
+                scatter_chart = alt.Chart(lst_df).mark_circle(size=60).encode(
+                    alt.Y('LST_Day_1km', title='Land Surface Temperature, °C'),
+                    alt.X('DOY', title='Day of the Year'),
+                    color='Year:N',
+                    tooltip=['LST_Day_1km', 'Timestamp']
+                ).interactive()
 
-            # Row 5
-            col1, col2 = st.columns([1,1])
-            with col1:
-                st.altair_chart(hexbin_chart)
-            with col2:
-                st.altair_chart(ridgeline_plot)
+                # Bar Chart with Negative Values: https://altair-viz.github.io/gallery/bar_chart_with_negatives.html
+                bar_negative = alt.Chart(lst_df).mark_bar().encode(
+                    alt.X("Timestamp"),
+                    alt.Y("LST_Day_1km:Q", title='Land Surface Temperature, °C'),
+                    color=alt.condition(
+                        alt.datum.LST_Day_1km > 0,
+                        alt.value("orange"),  # The positive color
+                        alt.value("steelblue")  # The negative color
+                    )
+                ).interactive()
 
-            # Row 6
-            col1, col2, col3 = st.columns([1,1,1])
-            with col1:
-                st.altair_chart(scatter_binned, use_container_width=True)
-            with col2:
-                st.altair_chart(scatter_chart, use_container_width=True)
-            with col3:
-                st.altair_chart(scatter_loess, use_container_width=True)
+                # Binned Scatterplot: https://altair-viz.github.io/gallery/binned_scatterplot.html
+                scatter_binned = alt.Chart(lst_df).mark_circle().encode(
+                    alt.X('DOY:Q', bin=True, title='Day of the Year'),
+                    alt.Y('LST_Day_1km:Q', bin=True, title='Land Surface Temperature, °C'),
+                    size='count()'
+                ).interactive()
 
-            col1, col2, col3 = st.columns([1, 4, 1])
+                #Scatter Plot with LOESS Lines: https://altair-viz.github.io/gallery/scatter_with_loess.html
+                base_scatter = alt.Chart(lst_df).mark_circle(opacity=0.5).encode(
+                    alt.X('DOY', title='Day of the Year'),
+                    alt.Y('LST_Day_1km:Q', title='Land Surface Temperature, °C'),
+                    alt.Color('Year:N')
+                )
+                scatter_loess = base_scatter + base_scatter.transform_loess('DOY', 'LST_Day_1km', groupby=['Year']).mark_line(size=4).interactive()
 
-            col2.markdown("""
-                ## Data
-                * Hydrological basins in Europe - [FAO Map Catalog.](https://data.review.fao.org/map/catalog/srv/api/records/1849e279-67bd-4e6f-a789-9918925a11a1)
-                * Land Surface Temperature - [MODIS via Google Earth Engine.](https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MOD11A2)
-                """)
+                # Stripplot: https://altair-viz.github.io/gallery/stripplot.html
+                stripplot =  alt.Chart(lst_df, width=40).mark_circle(size=8).encode(
+                    x=alt.X(
+                        'jitter:Q',
+                        title=None,
+                        axis=alt.Axis(values=[0], ticks=True, grid=False, labels=False),
+                        scale=alt.Scale(),
+                    ),
+                    y=alt.Y('LST_Day_1km:Q', title='Land Surface Temperature, °C'),
+                    color=alt.Color('Year:N', legend=None),
+                    column=alt.Column(
+                        'Year:N',
+                        header=alt.Header(
+                            labelAngle=-90,
+                            titleOrient='top',
+                            labelOrient='bottom',
+                            labelAlign='right',
+                            labelPadding=3,
+                        ),
+                    ),
+                ).transform_calculate(
+                    # Generate Gaussian jitter with a Box-Muller transform
+                    jitter='sqrt(-2*log(random()))*cos(2*PI*random())'
+                ).configure_facet(
+                    spacing=0
+                ).configure_view(
+                    stroke=None
+                ).properties(height=400).interactive()
+
+                # Table Bubble Plot: https://altair-viz.github.io/gallery/table_bubble_plot_github.html
+                table_bubble = alt.Chart(lst_df).mark_circle().encode(
+                    alt.X('Month:O'),
+                    alt.Y('Year:O'),
+                    alt.Size('mean(LST_Day_1km):Q', title='Land Surface Temperature, °C')
+                ).interactive()
+
+
+                # Visualizing in the defined layout
+                # Row 1
+                col1, col2 = st.columns([4,1])
+                with col1:
+                    st.altair_chart(line_chart, use_container_width=True)
+                with col2:
+                    st.altair_chart(boxplot_chart_year, use_container_width=True)
+
+                # Row 2
+                col1, col2 = st.columns([1,1])
+                with col1:
+                    st.altair_chart(binned_heatmap, use_container_width=True)
+                with col2:
+                    st.altair_chart(table_bubble, use_container_width=True)
+
+                # Row 3
+                col1, col2 = st.columns([1,4])
+                with col1:
+                    st.altair_chart(scatter_chart, use_container_width=True)
+                with col2:
+                    st.altair_chart(bar_negative, use_container_width=True)
+
+                # Row 4
+                col1, col2, col3 = st.columns([1,2,1])
+                with col1:
+                    st.altair_chart(boxplot_chart_month, use_container_width=True)
+                with col2:
+                    st.altair_chart(violin_chart)
+                with col3:
+                    st.altair_chart(stripplot)
+
+                # Row 5
+                col1, col2 = st.columns([1,1])
+                with col1:
+                    st.altair_chart(hexbin_chart)
+                with col2:
+                    st.altair_chart(ridgeline_plot)
+
+                # Row 6
+                col1, col2, col3 = st.columns([1,1,1])
+                with col1:
+                    st.altair_chart(scatter_binned, use_container_width=True)
+                with col2:
+                    st.altair_chart(scatter_chart, use_container_width=True)
+                with col3:
+                    st.altair_chart(scatter_loess, use_container_width=True)
+
+                col1, col2, col3 = st.columns([1, 4, 1])
+
+                col2.markdown("""
+                    ## Data
+                    * Hydrological basins in Europe - [FAO Map Catalog.](https://data.review.fao.org/map/catalog/srv/api/records/1849e279-67bd-4e6f-a789-9918925a11a1)
+                    * Watershed Boundary Dataset in the USA - [USGS.](https://www.usgs.gov/national-hydrography/watershed-boundary-dataset)
+                    * Land Surface Temperature - [MODIS via Google Earth Engine.](https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MOD11A2)
+                    """)
 
