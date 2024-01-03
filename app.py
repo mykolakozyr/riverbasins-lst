@@ -28,7 +28,7 @@ col2.markdown("""
     
     ## Details
 
-    The app enables discovering land surface temperature data over river basins in Europe, the USA and Australia and Oceania. 
+    The app enables discovering land surface temperature data over river basins in Europe, the USA and Australia and New Zealand. 
 
     Temporal extent: 2017-01-01 till today.
     Library for visualizations - [Vega-Altair](https://altair-viz.github.io/index.html).
