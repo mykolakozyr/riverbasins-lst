@@ -53,7 +53,7 @@ today = ee.Date(pd.to_datetime('today'))
 date_range = ee.DateRange('2017-01-01', today)
 
 # Interface to select the area of interest.
-region_name = col2.selectbox('Select the region.', ['Europe','USA'])
+region_name = col2.selectbox('Select the region.', ['Europe','USA', 'Australia and Oceania'])
 if region_name:
     # Defining the GeoDataFrame with a subset of areas with archive coverage.
     filename = "data/basins_" + region_name.lower() + "_mult.geojson"
