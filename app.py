@@ -8,7 +8,7 @@ import altair as alt
 from streamlit_folium import folium_static 
 import folium
 
-MAP_EMOJI_URL = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/325/thermometer_1f321-fe0f.png"
+MAP_EMOJI_URL = "https://em-content.zobj.net/source/apple/354/thermometer_1f321-fe0f.png"
 
 # Set page title and favicon.
 st.set_page_config(
@@ -25,7 +25,6 @@ col2.markdown("""
     # Land Surface Temperature - River Basins
     [![Follow](https://img.shields.io/twitter/follow/mykolakozyr?style=social)](https://www.twitter.com/mykolakozyr)
     [![Follow](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin&labelColor=blue)](https://www.linkedin.com/in/mykolakozyr/)
-    [![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee--yellow.svg?logo=buy-me-a-coffee&logoColor=orange&style=social)](https://www.buymeacoffee.com/mykolakozyr)
     
     ## Details
 
