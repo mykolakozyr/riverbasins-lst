@@ -28,7 +28,7 @@ col2.markdown("""
     
     ## Details
 
-    The app enables discovering land surface temperature data over river basins in Europe, the USA and Australia and New Zealand. 
+    The app enables discovering land surface temperature data over river (hydrological) basins. 
 
     Temporal extent: 2017-01-01 till today.
     Library for visualizations - [Vega-Altair](https://altair-viz.github.io/index.html).
@@ -53,7 +53,7 @@ today = ee.Date(pd.to_datetime('today'))
 date_range = ee.DateRange('2017-01-01', today)
 
 # Interface to select the area of interest.
-region_name = col2.selectbox('Select the region.', ['Europe','USA', 'Australia and New Zealand'])
+region_name = col2.selectbox('Select the region.', ['Europe','USA', 'Australia and New Zealand', 'Near East'])
 if region_name:
     # Defining the GeoDataFrame with a subset of areas with archive coverage.
     filename = "data/basins_" + region_name.lower() + "_mult.geojson"
@@ -359,6 +359,7 @@ if region_name:
                     * Hydrological basins in Europe - [FAO Map Catalog.](https://data.apps.fao.org/map/catalog/srv/api/records/1849e279-67bd-4e6f-a789-9918925a11a1)
                     * Watershed Boundary Dataset in the USA - [USGS.](https://www.usgs.gov/national-hydrography/watershed-boundary-dataset)
                     * Hydrological basins in Australia and New Zealand - [FAO Map Catalog.](https://data.apps.fao.org/catalog/dataset/a1a0e9ee-5062-4950-a6b9-fdd2284b2607)
+                    Hydrological basins in Near East - [FAO Map Catalog.](https://data.apps.fao.org/catalog/iso/7ae00a40-642b-4637-b1d3-ffacb13360db)
                     * Land Surface Temperature - [MODIS via Google Earth Engine.](https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MOD11A2)
                     """)
 
