@@ -44,23 +44,6 @@ col2.markdown("""
     ---
     """)
 
-json_data = '''
-{
-  "type": "service_account",
-  "project_id": "ee-mykolakozyr",
-  "private_key_id": "379377b141b4dbfad12cf25f7ae258da74515744",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC3WFncFeqIGB65\n3VsC04L9QNtMo9jaRBO+ORU40G1h1jM/RGBeaiXiXmr4t2WWr/AC0gjT4A0b+zpD\n0ZCjwLsMRPwv6IC/dbri/RjHX2DkkTwNB+0pLIRwGYQDJeJL74FiVimfFrAj2TM0\n/QYitG2aHpGf9+jvmev6yBKPE3Sj7yoC8LKikpw/jsQCvFg4KAMQMcmvsteWcpO6\nljrmuVCxiCZuJKqq0BcsZ1X6+cQSVki2ijOsfs9yshDsVO8l6MNENWqy27RvsK/S\npBXB1TrB/kK+UUucXK2s7zIVTy4rSHAyC1P+Hz/I6O0mXORvVrkekANKhRsOdKvK\nzlVw80eJAgMBAAECggEASjj/L8TDjFLPZYkCBhPgTGwMG2udJ0c2AuUS/UwLa/cO\nCgfBR5eLPKfigEumWalh7ZJftn5WcER1Iu1cs54bWu02dqKWNGwRu0Cg3l1zWTSe\nbdwOm4OFHeiGc8vLX9hWtZuR//BsYCbWvxXLfRMz55eGdo8jApR6XqzOLpO+vXou\nS0xTF4ci/VypA29fB2RGW4ZM4AbfY09kV4x9QjLoefPdhQxzLPSMM4jhNY9rSKbC\n6ep0xkRtDCHysaQ6rJfUwuNMXBFdSSO01pn6d0sUi4YQDqgBvFi+smr0t2AjEPNL\nSlku+OXNPBggKYhkHhKfWVrpLzAL6O+Zr0f057tPvQKBgQDZDsZgcgRnPU3EG3W5\ndyk9r5s4Hfq47wcj5eviize7ju0yIMJct0wLxtzmtcJL+f7JRbi6iEN44wiz9lIG\nnD6W+gxmkOw32i8Xjz5mQ8t6XkS9M3oOwZ2YSn9Vp4+q9dFkyxaoraKbZNkVqj5O\n3mIzX/iNWqg1w7ZzRG49OvEjvwKBgQDYPTF8j2xS+Vxe1wNwTjJxva0dXLC0iorF\nUn29QFeml3s+KrmKLUwWgvg+ZzRQvFtI0gAU0B5lwMt29aezvVmb/YHc0ZIlyRwR\nOKZfUzhFdsaZp1zko5tct/q/rk1KwE1jGLdife+v3VjzTnRjJ6g7kADaPQFPdgiZ\nglEKSlPGtwKBgQDAOk2FbHRp2ejdHFSOA/IKJ1MXx7UbwtRX/m+BGjopaNK36js3\nUT2P0HYh/CYukyAJsC2BRNw8WxSCDEtof0cO/jOtQftxG1FJVBq3BqNVo9bMmKIo\nH2AqVw+eE98wULM4yIMwr1WquQ1oGnVD876UMRI2XWtK8iDKxHe80k5skQKBgFpS\nBQ+QIKDvwyNiD++i2fMkVODEzJI8pAYTlK2t6G6PK00mL2WF0hg9EE+QcAuhAUgD\nX0FSRMAfrVy88xVia8F6O/nuF2ts+yo+TU/XxNNO71lSzLw7kjNCLZxOw74LYMeZ\nlU+wZqNAg1ztUjPwZpaqaZC+loOIO8NS6WKw9Rk1AoGBAIt0lXU+gsMiXsedZ1Vf\nDwWaydTAAXa6yyQbJnhBx8W7tpabo0Cd/XBABdt7AhSMn7xaHcMY+LUBfvTVBc2q\nSqYOlmpWHmhEoVtq361sA+hoo+UffzN3wWabTiHiu2c/rcTNHi0F8r8RZqcWqG/H\nxXksw87ackunegxJk7ygoewy\n-----END PRIVATE KEY-----\n",
-  "client_email": "streamlit-gee@ee-mykolakozyr.iam.gserviceaccount.com",
-  "client_id": "118001670119328519368",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/streamlit-gee%40ee-mykolakozyr.iam.gserviceaccount.com"
-}
-'''
-
-service_account = 'streamlit-gee@ee-mykolakozyr.iam.gserviceaccount.com'
-
 def convert_df(df):
     return df.to_csv(index=False).encode('utf-8')
 
@@ -69,8 +52,8 @@ def convert_gdf(gdf):
     gdf['Timestamp'] = gdf['Timestamp'].astype(str)
     return gdf.to_json()
 
-# json_data = st.secrets["json_data"]
-# service_account = st.secrets["service_account"]
+json_data = st.secrets["json_data"]
+service_account = st.secrets["service_account"]
 
 
 json_object = json.loads(json_data, strict=False)
